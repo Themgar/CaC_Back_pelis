@@ -4,7 +4,7 @@ const db = require("../db/db");
 
 const getAllMovies = (req, res) => {
     const sql = 'SELECT * FROM movies';
-    db.query(sql, (err, results) => {
+    db.query(sql, (error, results) => {
         if (error) {
             return res.status(500).json({ error: "Intente más tarde" });
         }
