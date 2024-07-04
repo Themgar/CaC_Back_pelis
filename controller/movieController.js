@@ -3,8 +3,8 @@
 const db = require("../db/db");
 
 const getAllMovies = (req, res) => {
-    const sql = 'SELECT * FROM movies';
-    db.query(sql, (error, results) => {
+    const sql = 'SELECT * FROM peliculas';
+    db.query(sql, (error, rows) => {
         if (error) {
             return res.status(500).json({ error: "Intente más tarde" });
         }
@@ -14,7 +14,7 @@ const getAllMovies = (req, res) => {
 
 const showMovieById = (req, res) => {
     const { id } = req.params;
-    const sql = "SELECT * FROM movies WHERE id = ?";
+    const sql = "SELECT * FROM peliculas WHERE id_pelicula = ?";
     db.query(sql, [id], (error, rows) => {
         if (error) {
             return res.status(500).json({ error: "Intente más tarde" });
@@ -29,7 +29,7 @@ const showMovieById = (req, res) => {
 
 const createMovie = (req, res) => {
     const { nombre, categoria, pais } = req.body;
-    const sql = "INSERT INTO movies (nombre, categoria, pais) VALUES (?, ?, ?)";
+    const sql = "INSERT INTO peliculas (nombre, categoria, pais) VALUES (?, ?, ?)";
     db.query(sql, [nombre, categoria, pais], (error, result) => {
         if (error) {
             return res.status(500).json({ error: "Intente más tarde" });
@@ -42,7 +42,7 @@ const createMovie = (req, res) => {
 const updateMovie = (req, res) => {
     const { id } = req.params;
     const { nombre, categoria, pais } = req.body;
-    const sql = 'UPDATE movies SET nombre = ?, categoria = ?, pais = ? WHERE id = ?';
+    const sql = 'UPDATE peliculas SET nombre = ?, categoria = ?, pais = ? WHERE id = ?';
     db.query(sql, [nombre, categoria, pais, id], (error, result) => {
         if (error) {
             return res.status(500).json({ error: "Intente más tarde" });
@@ -56,7 +56,7 @@ const updateMovie = (req, res) => {
 
 const deleteMovie = (req, res) => {
     const { id } = req.params;
-    const sql = 'DELETE FROM movies WHERE id = ?';
+    const sql = 'DELETE FROM peliculas WHERE id = ?';
     db.query(sql, [id], (error, result) => {
         if (error) {
             return res.status(500).json({ error: "Intente más tarde" });
